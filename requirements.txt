@@ -1,0 +1,20 @@
+# Selenium ve WebDriver bağımlılıkları
+selenium==4.15.2
+webdriver-manager==4.0.1
+
+# HTTP istekleri için
+requests==2.31.0
+
+# Ortam değişkenleri için
+python-dotenv==1.0.0
+
+# Terminal UI bileşenleri
+prompt-toolkit==3.0.41
+
+# Standart kütüphaneler (genellikle Python ile gelir, ama belirtmek iyidir)
+# json - Python ile gelir
+# os - Python ile gelir  
+# time - Python ile gelir
+# datetime - Python ile gelir
+# threading - Python ile gelir
+# warnings - Python ile gelir
