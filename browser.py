@@ -55,6 +55,7 @@ def browser_handle_pair(pair):
         element.send_keys(Keys.BACKSPACE)
         element.send_keys(os.getenv("ORDER_AMOUNT"))
     except Exception as e:
+        
         print(f"Tıklama hatası: {e}")    
 
     time.sleep(5)

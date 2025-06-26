@@ -3,6 +3,7 @@ import time
 import json
 import os
 from datetime import datetime
+from dotenv import load_dotenv
 
 TOKENS_FILE = "known_tokens.json"
 
@@ -60,6 +61,21 @@ def initialize_known_tokens(output_func):
 
 def scan_loop(output_func, running_flag, selenium_func, login_done):
     """Ana tarama döngüsü"""
+    
+    # Çevre değişkenlerini yükle
+    load_dotenv()
+    
+    # Tarama aralığını al (varsayılan: 10 saniye)
+    try:
+        scan_interval = int(os.getenv("SCAN_INTERVAL", "10"))
+        if scan_interval < 1:
+            scan_interval = 10
+            output_func("⚠ SCAN_INTERVAL 1'den küçük olamaz. Varsayılan 10 saniye kullanılıyor.")
+    except ValueError:
+        scan_interval = 10
+        output_func("⚠ SCAN_INTERVAL geçersiz değer. Varsayılan 10 saniye kullanılıyor.")
+    
+    output_func(f"📊 Tarama aralığı: {scan_interval} saniye")
     
     # Bilinen tokenları yükle
     known_tokens = load_known_tokens()
@@ -135,8 +151,8 @@ def scan_loop(output_func, running_flag, selenium_func, login_done):
         
         # Bir sonraki tarama için bekle
         if running_flag["running"]:
-            output_func("⏱ 10 saniye bekleniyor...")
-            for i in range(10):
+            output_func(f"⏱ {scan_interval} saniye bekleniyor...")
+            for i in range(scan_interval):
                 if not running_flag["running"]:
                     break
                 time.sleep(1)
